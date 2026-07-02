@@ -61,7 +61,7 @@ def busqueda_del_producto(inventario)->None:
                         pass
                     else:
                         lista_resultados.append(producto)
-        if lista_resultados:
+        if len(lista_resultados) > 1:
             ultimo_resultado=lista_resultados[-1][0]
             varios_productos(ultimo_resultado)
         else:
@@ -148,8 +148,17 @@ def notificaciones()->None:
                         continue
                     break
                 else:    
-                    print("Estos productos estan por debajo del valor establecido.")
                     items=dsql.notificaciones_sql(config)
+                    if not items:
+                        print("No hay nada para mostrar.")
+                        opcion=utils.validar_opcion_num("Pulse 1 para modificar las notificaciones o 0 para ir al menu principal: ",0,1)
+                        if opcion == 0:
+                            main.bucle_main()
+                        else:
+                            configurar_notificaciones=True
+                            continue
+                    print("Estos productos estan por debajo del valor establecido.")
+                    
                     numeros=0
                     for x in items:
                         numeros+=1

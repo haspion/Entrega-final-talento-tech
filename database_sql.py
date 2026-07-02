@@ -3,7 +3,11 @@ import acciones as a
 import main
 import colorama as c
 
-def conexion():
+def conexion()->None:
+    '''Realiza la conexion con la base de datos inventario.db
+    Returns:None.
+    variables:None.
+    Raises:por ahora ninguno.'''
     try:
         conn = sqlite3.connect('inventario.db')
         return conn
@@ -11,7 +15,11 @@ def conexion():
         print(f"Error al conectar con la base de datos: {e}")
         return None
     
-def crear_tabla():
+def crear_tabla()->None:
+    '''Crea una tabla si no existe en la base de datos inventario.db
+    Returns:None.
+    variables:None.
+    Raises:por ahora ninguno.'''
     try:
         conn = conexion()
         cursor = conn.cursor()
@@ -34,7 +42,11 @@ def crear_tabla():
 
 
 
-def guardar_producto_sql(nombre,descripcion,cantidad,precio,categoria):
+def guardar_producto_sql(nombre,descripcion,cantidad,precio,categoria)->None:
+    '''Guarda un producto en la base de datos inventario.db
+    Returns:None.
+    Variables nombre,descripcion,cantidad,precio,categoria:son datos del producto a guardar.
+    Raises:puede generar error el tipo de variables que se ingresa a la funcion.'''
     try:
         conn=conexion()
         cursor=conn.cursor()
@@ -49,7 +61,11 @@ def guardar_producto_sql(nombre,descripcion,cantidad,precio,categoria):
         conn.rollback()
         cursor.close
     
-def consultar_productos_sql():
+def consultar_productos_sql()->list:
+    '''Consulta todos los productos en la base de datos inventario.db
+    Returns:lista de productos.
+    Variables:None.
+    Raises:por ahora ninguno.'''
     try:
         conn=conexion()
         cursor=conn.cursor()
@@ -63,7 +79,11 @@ def consultar_productos_sql():
         conn.rollback()
         conn.close()
 
-def mostrar_producto(indice):
+def mostrar_producto(indice:int)->list:
+    '''Consulta un producto en la base de datos inventario.db
+    Returns:lista de productos.
+    indice:indice del producto a consultar.
+    Raises:error al ingresar '''
     try:
         conn=conexion()
         cursor=conn.cursor()
